@@ -1,11 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
-public class MainFrame extends JFrame{
+public class MainFrame extends JFrame implements Icon{
     private int ScreenW = Toolkit.getDefaultToolkit().getScreenSize().width;
     private int ScreenH = Toolkit.getDefaultToolkit().getScreenSize().height;
     private int frmW = 1000,frmH = 1000,personX = 500,personY = 820;
@@ -21,9 +17,17 @@ public class MainFrame extends JFrame{
     private  Image imageData[]=new Image[4];
 
     private JLabel jlabperson=new JLabel(personStandup);
-    private ImageIcon ball =new ImageIcon("Image/test3.png");
-    private JLabel jlabBall=new JLabel(ball);
-    private Timer t1;
+//    private ImageIcon ball =new ImageIcon("Image/test3.png");
+    private ImageIcon backgroundBottom =new ImageIcon("Image/grassAll.png");
+    private JLabel bglb =new JLabel(backgroundBottom);
+
+    private JPanel jpDraw=new JPanel(new GridLayout(1,4,3,3));
+    private int width=49,height=50,mapRow=20,mapCol=20; //width:視窗寬、height:視窗長、mapRow:地圖row、mapCol:地圖col。
+    private JLabel Imagelabel[][]=new JLabel[width][height]; //按鈕。
+    private int map[][]=new int[mapRow][mapCol]; //地圖。
+    private JPanel jpMap =new JPanel();
+    private JPanel jpConfig =new JPanel();
+    BackgroundPanel bgp;
 
 
 
@@ -34,124 +38,73 @@ public class MainFrame extends JFrame{
         this.setTitle("Game");
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setBounds(ScreenW/2-frmW/2,ScreenH/2-frmH/2,frmW,frmH);
-        this.setLayout(null);
-        this.add(jlabperson);
-        this.add(jlabBall);
-        Container cp ;
-        cp = this.getContentPane();
-        cp.setLayout(new BorderLayout(3,3));
-        jlabperson.setBounds(personX,personY,80,80);
-        jlabperson.setOpaque(true);
-        jlabperson.setBackground(new Color(200, 0, 0));
-        cp.setBackground(new Color(200, 0, 0));
+//        Container cp;
+//        cp=this.getContentPane();
+//        cp.setLayout(null);
 
-        t1=new Timer(100, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
 
-            }
-        });
+//        bglb.setBounds(0, 0, backgroundBottom.getIconWidth(), backgroundBottom.getIconHeight());
 
-        this.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-//                switch (e.getKeyCode()){
-//                    case KeyEvent.VK_Q:
-//                        jlabBall.setOpaque(true);
-//                        jlabBall.setBackground(new Color(200,0,0));
-//                        jlabBall.setBounds(personX+5,personY+5,50,50);
-//                        jlabBall.setIcon(ball);
+
+        bgp=new BackgroundPanel((new ImageIcon("Image/grassAll.png")).getImage());
+//        bgp.setBounds(0,0,100,100);
+//        bgp.setPreferredSize(new Dimension(500,580));
+
+        this.add(bgp,BorderLayout.CENTER);
+
+        this.add(jpConfig,BorderLayout.SOUTH);
+//        bgp.setMinimumSize(new );
+//        this.setMinimumSize(new java.awt.Dimension(1000, 1000));
+
+//        this.setLocationRelativeTo(null);
+
+//        jpConfig.setPreferredSize(new Dimension(100, 500));
+
+//        jpMap.setLayout(new GridLayout(mapRow,mapCol));
+//        for(int i=0;i<mapRow;i++){
+//            for(int j=0;j<mapCol;j++){
+//                Imagelabel[i][j]=new JLabel(new ImageIcon("Image/grass.png"));
+//                Imagelabel[i][j].setOpaque(true);
 //
-//                }
-
-
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                switch (e.getKeyCode()){
-                    case KeyEvent.VK_RIGHT:
-                        personX+=10;
-                        jlabperson.setIcon(personRightRun);
-                        jlabperson.setLocation(personX,personY);
-                        break;
-
-
-
-                    case KeyEvent.VK_LEFT:
-                        personX-=10;
-                        jlabperson.setIcon(personLeftRun);
-                        jlabperson.setLocation(personX,personY);
-                        break;
-                    case KeyEvent.VK_UP:
-                        personY-=10;
-                        jlabperson.setIcon(personStandupWalkTurn);
-                        jlabperson.setLocation(personX,personY);
-                        break;
-                    case KeyEvent.VK_DOWN:
-                        personY+=10;
-                        jlabperson.setIcon(personStandupWalk);
-                        jlabperson.setLocation(personX,personY);
-                        break;
-
-
-
-
-                }
-
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-                switch (e.getKeyCode()){
-                    case KeyEvent.VK_LEFT:
-                        jlabperson.setIcon(personLeft);
-                        jlabperson.setLocation(personX,personY);
-                        break;
-                    case KeyEvent.VK_RIGHT:
-
-                        jlabperson.setIcon(personRight);
-                        jlabperson.setLocation(personX,personY);
-                        break;
-                    case KeyEvent.VK_UP:
-
-                        jlabperson.setIcon(personStandupTurn);
-                        jlabperson.setLocation(personX,personY);
-                        break;
-                    case KeyEvent.VK_DOWN:
-
-                        jlabperson.setIcon(personStandup);
-                        jlabperson.setLocation(personX,personY);
-                        break;
-
-                }
-
-
-            }
-        });
-
-//        Timer tmr=new Timer(5, new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                for(int i=0;i<move.length;i++){
-//                    imageData[i]=Toolkit.getDefaultToolkit().getImage(move[i]);
-//                    i++;
-//
-//                }
-//
+//                jpMap.add(Imagelabel[i][j]);
 //            }
-//        });
+//        }
+//        cp.add(jpMap,BorderLayout.CENTER);
 
 
+    }
+
+    @Override
+    public void paintIcon(Component c, Graphics g, int x, int y) {
+
+    }
+
+    @Override
+    public int getIconWidth() {
+        return 0;
+    }
+
+    @Override
+    public int getIconHeight() {
+        return 0;
+    }
+
+    class BackgroundPanel extends JPanel
+    {
+        Image bg;
+        public BackgroundPanel(Image bg)
+        {
+            this.bg=bg;
+            this.setOpaque(false);
+        }
+        //Draw the background.
+        public void paintComponent(Graphics g)
+        {
+            super.paintComponents(g);
+            g.drawImage(bg,0,0,bgp.getWidth(),800,bgp);
 
 
-
-
-
-
-
-
-
+        }
     }
 
 
