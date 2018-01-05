@@ -52,7 +52,7 @@ public class MainFrame extends JFrame implements Icon{
 
         this.add(bgp,BorderLayout.CENTER);
 
-        this.add(jpConfig,BorderLayout.SOUTH);
+//        this.add(jpConfig,BorderLayout.SOUTH);
 //        bgp.setMinimumSize(new );
 //        this.setMinimumSize(new java.awt.Dimension(1000, 1000));
 
@@ -101,7 +101,7 @@ public class MainFrame extends JFrame implements Icon{
         public void paintComponent(Graphics g)
         {
             super.paintComponents(g);
-            g.drawImage(bg,0,0,bgp.getWidth(),800,bgp);
+            g.drawImage(bg,0,0,bgp.getWidth(),bgp.getHeight(),bgp);
 
 
         }
